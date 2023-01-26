@@ -40,6 +40,14 @@ pipeline{
         junit "target/surefire-reports/*.xml"
       }
     }
+    stage('Package') {
+    steps {
+      echo '''07# Stage - Package
+      (develop y main): Generación del artefacto .jar (SNAPSHOT)
+      '''
+        sh 'mvn package -DskipTests'
+      }
+    }
     stage('Build & Push') {
       steps {
       echo '''08# Stage - Build & Push
@@ -52,15 +60,15 @@ pipeline{
             def APP_IMAGE_NAME = "app-pf-backend"
             def APP_IMAGE_TAG = "0.0.1" //Aqui hay que obtenerlo de POM.txt
             withCredentials([usernamePassword(credentialsId: 'ID_Docker_Hub', passwordVariable: 'ID_Docker_Hub_PASS', usernameVariable: 'ID_Docker_Hub_USER')]) {
-              AUTH = sh(script: """echo -n "${idCredencialesDockerHub_USER}:${idCredencialesDockerHub_PASS}" | base64""", returnStdout: true).trim()
+              AUTH = sh(script: """echo -n "${ID_Docker_Hub_USER}:${ID_Docker_Hub_PASS}" | base64""", returnStdout: true).trim()
               command = """echo '{"auths": {"https://index.docker.io/v1/": {"auth": "${AUTH}"}}}' >> /kaniko/.docker/config.json"""
               sh("""
                   set +x
                   ${command}
                   set -x
                   """)
-              sh "/kaniko/executor --dockerfile Dockerfile --context ./ --destination ${idCredencialesDockerHub_USER}/${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
-              sh "/kaniko/executor --dockerfile Dockerfile --context ./ --destination ${idCredencialesDockerHub_USER}/${APP_IMAGE_NAME}:latest --cleanup"
+              sh "/kaniko/executor --dockerfile Dockerfile --context ./ --destination ${ID_Docker_Hub_USER}/${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
+              sh "/kaniko/executor --dockerfile Dockerfile --context ./ --destination ${ID_Docker_Hub_USER}/${APP_IMAGE_NAME}:latest --cleanup"
             }
           }
         } 
