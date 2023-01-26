@@ -50,8 +50,8 @@ pipeline{
             
           script {
             def APP_IMAGE_NAME = "app-pf-backend"
-            def APP_IMAGE_TAG = APP_VERSION //Aqui hay que obtenerlo de POM.txt
-            withCredentials([usernamePassword(credentialsId: 'idCredencialesDockerHub', passwordVariable: 'idCredencialesDockerHub_PASS', usernameVariable: 'idCredencialesDockerHub_USER')]) {
+            def APP_IMAGE_TAG = "0.0.1" //Aqui hay que obtenerlo de POM.txt
+            withCredentials([usernamePassword(credentialsId: 'ID_Docker_Hub', passwordVariable: 'ID_Docker_Hub_PASS', usernameVariable: 'ID_Docker_Hub_USER')]) {
               AUTH = sh(script: """echo -n "${idCredencialesDockerHub_USER}:${idCredencialesDockerHub_PASS}" | base64""", returnStdout: true).trim()
               command = """echo '{"auths": {"https://index.docker.io/v1/": {"auth": "${AUTH}"}}}' >> /kaniko/.docker/config.json"""
               sh("""
