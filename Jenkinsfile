@@ -95,7 +95,7 @@ spec:
 
         script {
           sh 'echo "Estamos dentro del contenedor"'
-          sh 'sleep 3600'            
+          //sh 'sleep 3600s'            
         }
       }
     }
