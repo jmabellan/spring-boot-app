@@ -25,6 +25,10 @@ spec:
     command:
     - /busybox/cat
     tty: true
+    - name: springBoot
+    image: jmabellan/app-pf-backend:latest
+    command:
+    - sleep
 '''
 /*    volumeMounts:
       - name: kaniko-secret
@@ -60,9 +64,9 @@ spec:
     stage('Build & Push') {
       steps {
       echo '''08# Stage - Build & Push
-      (develop y main): Construcción de la imagen con Kaniko y subida de la misma a repositorio personal en Docker Hub.
-      Para el etiquetado de la imagen se utilizará la versión del pom.xml
-      '''
+        (develop y main): Construcción de la imagen con Kaniko y subida de la misma a repositorio personal en Docker Hub.
+        Para el etiquetado de la imagen se utilizará la versión del pom.xml
+        '''
         container('imgkaniko') {
             
           script {
@@ -83,6 +87,19 @@ spec:
         } 
       }
     }
+    stage('deploy custom image') {
+      steps {
+        echo '''Desplegando nuestra imagen personalizada desde docker-hub'''
+
+        container('springBoot')
+
+        script {
+          sh 'echo "Estamos dentro del contenedor"'
+          sh 'sleep 3600'            
+        }
+      }
+    }
+    
     /*stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv(credentialsId: "ID_Sonarq", installationName: "SonarQube"){
