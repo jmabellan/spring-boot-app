@@ -25,7 +25,7 @@ spec:
     command:
     - /busybox/cat
     tty: true
-  - name: springBoot
+  - name: springboot
     image: jmabellan/app-pf-backend:latest
     command:
     - sleep
@@ -91,7 +91,7 @@ spec:
       steps {
         echo '''Desplegando nuestra imagen personalizada desde docker-hub'''
 
-        container('springBoot')
+        container('springboot')
 
         script {
           sh 'echo "Estamos dentro del contenedor"'
