@@ -25,7 +25,7 @@ spec:
     command:
     - /busybox/cat
     tty: true
-    - name: springBoot
+  - name: springBoot
     image: jmabellan/app-pf-backend:latest
     command:
     - sleep
