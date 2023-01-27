@@ -127,6 +127,7 @@ spec:
 		        NEXUS_VERSION = "nexus3"
                 NEXUS_PROTOCOL = "http"
                 NEXUS_URL = "192.168.88.254:8081"
+                //NEXUS_URL = "1192.168.49.3:8081"
                 NEXUS_REPOSITORY = "bootcamp/"
                 NEXUS_CREDENTIAL_ID = "nexusidentity"
             }
