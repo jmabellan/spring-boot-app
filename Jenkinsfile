@@ -91,11 +91,11 @@ spec:
       steps {
         echo '''Desplegando nuestra imagen personalizada desde docker-hub'''
 
-        container('springboot')
-
-        script {
-          sh 'echo "Estamos dentro del contenedor"'
-          //sh 'sleep 3600s'            
+        container('springboot'){
+          script {
+            sh 'echo "Estamos dentro del contenedor"'
+            sh 'sleep 100'            
+          }
         }
       }
     }
