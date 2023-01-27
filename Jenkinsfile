@@ -32,7 +32,7 @@ spec:
     args:
     - infinity
 '''
-/*    volumeMounts:
+  /*    volumeMounts:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
   volumes:
@@ -40,13 +40,13 @@ spec:
     secret:
       secretName: kaniko-secret
       optional: false
-'''*/
+  '''*/
             defaultContainer 'jdk11'
         }
   }
 
 	stages {
-    stage('Unit Tests') {
+  /*  stage('Unit Tests') {
       steps {
         echo '''04# Stage - Unit Tests
         (develop y main): Lanzamiento de test unitarios.
@@ -54,16 +54,16 @@ spec:
         sh "mvn test"
         junit "target/surefire-reports/*.xml"
       }
-    }
-    stage('Package') {
+    }*/
+    /*stage('Package') {
     steps {
       echo '''07# Stage - Package
       (develop y main): Generación del artefacto .jar (SNAPSHOT)
       '''
         sh 'mvn package -DskipTests'
       }
-    }
-    stage('Build & Push') {
+    }*/
+    /*stage('Build & Push') {
       steps {
       echo '''08# Stage - Build & Push
         (develop y main): Construcción de la imagen con Kaniko y subida de la misma a repositorio personal en Docker Hub.
@@ -88,8 +88,8 @@ spec:
           }
         } 
       }
-    }
-    stage('deploy custom image') {
+    }*/
+    /*stage('deploy custom image') {
       steps {
         echo '''Desplegando nuestra imagen personalizada desde docker-hub'''
 
@@ -100,17 +100,17 @@ spec:
           }
         }
       }
-    }
+    }*/
     
-    /*stage('SonarQube analysis') {
+    stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv(credentialsId: "ID_Sonarq", installationName: "SonarQube"){
             sh "mvn clean verify sonar:sonar -DskipTests"
         }
       }
-    }*/
+    }
 
-    /*stage('Quality Gate') {
+    stage('Quality Gate') {
       steps {
         timeout(time: 10, unit: "MINUTES") {
           script {
@@ -121,7 +121,7 @@ spec:
           }
         }
       }
-    }*/
-    
-	}
-}    
+    }
+  }
+}
+ 
