@@ -29,6 +29,8 @@ spec:
     image: jmabellan/app-pf-backend:latest
     command:
     - sleep
+    args:
+    - infinity
 '''
 /*    volumeMounts:
       - name: kaniko-secret
@@ -94,7 +96,7 @@ spec:
         container('springboot'){
           script {
             sh 'echo "Estamos dentro del contenedor"'
-            sh 'sleep 100'            
+            sh 'sleep infinity'            
           }
         }
       }
